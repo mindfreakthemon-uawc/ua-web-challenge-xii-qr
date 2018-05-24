@@ -1,0 +1,22 @@
+doctype html
+html(lang='en')
+	head
+		title ua-web-challenge-xii-qr
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+		meta(http-equiv='x-ua-compatible', content='ie=edge')
+		meta(name='theme-color', value='#000')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', integrity='sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ', crossorigin='anonymous')
+		//- inject:css
+		//- endinject
+	body
+		main
+			noscript You need javascript in order to use this app
+			.sk-circle
+				each _, i in Array(12)
+					.sk-child(class='sk-circle' + (i + 1))
+		//- inject:js
+		//- endinject
+		script(inline, src='systemjs.config.js')
+		script.
+			System.import('app');

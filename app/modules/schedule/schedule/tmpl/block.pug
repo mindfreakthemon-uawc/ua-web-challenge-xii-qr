@@ -1,0 +1,14 @@
+svg:rect.display(
+    '[attr.x]'='sidePadding + position',
+    '[attr.y]'='topPadding + (isExtraHeight ? 0 : topExtraPadding)',
+    '[attr.height]'='100 - topPadding - (isExtraHeight ? 0 : topExtraPadding)',
+    '[attr.width]'='duration',
+    '[attr.fill]'='color')
+
+svg:rect.resize(
+    '*ngIf'='editable',
+    '[attr.x]'='sidePadding + position + duration - 10',
+    '[attr.y]'='-10',
+    '[attr.height]'='110',
+    '[attr.width]'='10',
+    'fill'='black')

@@ -1,0 +1,142 @@
+svg('schedule',
+    'width'='100%',
+    'height'='500px')
+
+    ng-template('#dynamicAreaLabel'='')
+    ng-template('#dynamicBlock'='')
+    ng-template('#dynamicEventLabel'='')
+
+
+.row
+    form.col-9('(submit)'='submit();', '*ngIf'='!schedule.editTarget', ngNativeValidate)
+        h4 Add New Item
+        .form-group.row
+          label.col-3.col-form-label Type
+          .col-9
+            select.form-control('[(ngModel)]'='scheduleComponentType', name='scheduleComponentType')
+                option('*ngFor'='let type of scheduleComponentTypes', '[value]'='type') {{type}}
+
+        ng-container('[ngSwitch]'='scheduleComponentType')
+            ng-container('*ngSwitchCase'='ScheduleComponentType.AREA_LABEL')
+                .form-group.row
+                    label.col-3.col-form-label Text
+                    .col-9
+                        input.form-control(type='text', '[(ngModel)]'='text', name='text', required)
+                .form-group.row
+
+                    label.col-3.col-form-label Color
+                    .col-3
+                        input(type='color', '[(ngModel)]'='color', name='color', required)
+                    label.col-3.col-form-label Background Color
+                    .col-3
+                        input(type='color', '[(ngModel)]'='bgColor', name='bgColor', required)
+
+                .form-group.row
+                    label.col-3.col-form-label Position
+                    .col-3
+                        input.form-control(type='time', '[(ngModel)]'='position', name='position', required)
+                    label.col-3.col-form-label Duration
+                    .col-3
+                        input.form-control(type='time', '[(ngModel)]'='duration', name='duration', min='00:15', required)
+
+            ng-container('*ngSwitchCase'='ScheduleComponentType.EVENT_LABEL')
+                .form-group.row
+                    label.col-3.col-form-label Text
+                    .col-9
+                        input.form-control(type='text', '[(ngModel)]'='text', name='text', required)
+
+                .form-group.row
+                    label.col-3.col-form-label Color
+                    .col-3
+                        input(type='color', '[(ngModel)]'='color', name='color', required)
+                    label.col-3.col-form-label Position
+                    .col-3
+                        input.form-control(type='time', '[(ngModel)]'='position', name='position', required)
+
+
+            ng-container('*ngSwitchCase'='ScheduleComponentType.BLOCK')
+                .form-group.row
+                    label.col-3.col-form-label Color
+                    .col-3
+                        input(type='color', '[(ngModel)]'='color', name='color', required)
+                    label.col-3.col-form-label Extra High
+                    .col-3
+                        input.form-control(type='checkbox', '[(ngModel)]'='isExtraHeight', name='isExtraHeight')
+
+                .form-group.row
+                    label.col-3.col-form-label Position
+                    .col-3
+                        input.form-control(type='time', '[(ngModel)]'='position', name='position', required)
+                    label.col-3.col-form-label Duration
+                    .col-3
+                        input.form-control(type='time', '[(ngModel)]'='duration', name='duration', min='00:15', required)
+
+        button.btn.btn-block.btn-primary Add
+
+    form.col-9('*ngIf'='schedule.editTarget', ngNativeValidate)
+        h4 Edit Selected Item
+        ng-container('[ngSwitch]'='schedule.editTarget.componentType')
+            ng-container('*ngSwitchCase'='ScheduleComponentType.AREA_LABEL')
+                .form-group.row
+                    label.col-3.col-form-label Text
+                    .col-9
+                        input.form-control(type='text', '[(ngModel)]'='schedule.editTarget.text', name='text', required)
+                .form-group.row
+                    label.col-3.col-form-label Color
+                    .col-3
+                        input(type='color', '[(ngModel)]'='schedule.editTarget.color', name='color', required)
+                    label.col-3.col-form-label Background Color
+                    .col-3
+                        input(type='color', '[(ngModel)]'='schedule.editTarget.bgColor', name='bgColor', required)
+
+                .form-group.row
+                    label.col-3.col-form-label Position
+                    .col-3
+                        input.form-control(type='time', '[ngModel]'='formatTime(schedule.editTarget.position)', '(ngModelChange)'='schedule.editTarget.position = parseTime($event)', name='position', required)
+                    label.col-3.col-form-label Duration
+                    .col-3
+                        input.form-control(type='time', '[ngModel]'='formatTime(schedule.editTarget.duration)', '(ngModelChange)'='schedule.editTarget.duration = parseTime($event)', name='duration', required)
+
+            ng-container('*ngSwitchCase'='ScheduleComponentType.EVENT_LABEL')
+                .form-group.row
+                    label.col-3.col-form-label Text
+                    .col-9
+                        input.form-control(type='text', '[(ngModel)]'='schedule.editTarget.text', name='text', required)
+
+                .form-group.row
+                    label.col-3.col-form-label Color
+                    .col-9
+                        input(type='color', '[(ngModel)]'='schedule.editTarget.color', name='color', required)
+
+                .form-group.row
+                    label.col-3.col-form-label Position
+                    .col-9
+                        input.form-control(type='time', '[ngModel]'='formatTime(schedule.editTarget.position)', '(ngModelChange)'='schedule.editTarget.position = parseTime($event)', name='position', required)
+
+
+            ng-container('*ngSwitchCase'='ScheduleComponentType.BLOCK')
+                .form-group.row
+                    label.col-3.col-form-label Color
+                    .col-3
+                        input(type='color', '[(ngModel)]'='schedule.editTarget.color', name='color', required)
+                    label.col-3.col-form-label Extra High
+                    .col-3
+                        input.form-control(type='checkbox', '[ngModel]'='schedule.editTarget.isExtraHeight', '(ngModelChange)'='schedule.editTarget.isExtraHeight = $event', name='isExtraHeight')
+
+                .form-group.row
+                    label.col-3.col-form-label Position
+                    .col-3
+                        input.form-control(type='time', '[ngModel]'='formatTime(schedule.editTarget.position)', '(ngModelChange)'='schedule.editTarget.position = parseTime($event)', name='position', required)
+                    label.col-3.col-form-label Duration
+                    .col-3
+                        input.form-control(type='time', '[ngModel]'='formatTime(schedule.editTarget.duration)', '(ngModelChange)'='schedule.editTarget.duration = parseTime($event)', name='duration', required)
+
+        button.btn.btn-block.btn-danger('type'='button', '(click)'='remove(schedule.editTarget)') Remove
+
+    .col-3
+        h4 Export
+        button.btn.btn-block.btn-info('type'='button', '(click)'='exportSVG()') SVG
+        button.btn.btn-block.btn-info('type'='button', '(click)'='exportPNG()') PNG
+        hr
+        h4 Import
+        input.btn.btn-block.btn-info('type'='file', '(change)'='importSVG($event)', 'accept'='svg')

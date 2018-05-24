@@ -1,0 +1,13 @@
+text {
+	cursor: move;
+
+	user-select: none;
+
+	&::selection {
+		background: none;
+	}
+}
+
+:host.editable {
+	outline: 1px dashed #000;
+}

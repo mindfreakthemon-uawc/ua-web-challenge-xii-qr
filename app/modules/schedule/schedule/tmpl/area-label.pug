@@ -1,0 +1,39 @@
+svg:pattern(
+    'id'='pattern_{{id}}',
+    'width'='4',
+    'height'='4',
+    'patternTransform'='scale(1, .5) rotate(45 0 0)',
+    'patternUnits'='userSpaceOnUse')
+  svg:line(
+    'x1'='0',
+    'y1'='0',
+    'x2'='0',
+    'y2'='4',
+    '[attr.stroke]'='bgColor',
+    'stroke-width'='1')
+
+svg:rect.display(
+    '[attr.x]'='sidePadding + position',
+    '[attr.y]'='0',
+    '[attr.height]'='200',
+    '[attr.width]'='duration',
+    'attr.fill'='url(#pattern_{{id}})')
+
+svg:rect.resize(
+    '*ngIf'='editable',
+    '[attr.x]'='sidePadding + position + duration - 10',
+    '[attr.y]'='0',
+    '[attr.height]'='200',
+    'fill'='black',
+    '[attr.width]'='10'
+    )
+
+svg:text(
+    '[attr.font-size]'='fontSize',
+    '[attr.fill]'='color',
+    'font-variant'='small-caps',
+    'dominant-baseline'='middle',
+    'text-anchor'='end',
+    'transform'='rotate(-90)',
+    '[attr.y]'='sidePadding + position + duration / 2',
+    'x'='-5') {{text}}

@@ -1,0 +1,20 @@
+svg:line(
+    '*ngFor'='let i of array; index as k; first as isFirst; odd as isOdd; even as isEven; last as isLast;',
+    '[attr.x1]'='getXCoordinate(k)',
+    '[attr.x2]'='getXCoordinate(k)',
+    '[attr.y1]'='topPadding + (isOdd ? oddTopExtraPadding : 0)',
+    '[attr.y2]'='100',
+    '[attr.stroke-width]'='isHourLine(k) ? strokeHourWidth : strokeWidth'
+    '[attr.stroke]'='stroke')
+
+ng-container('*ngFor'='let i of array; index as k; first as isFirst; odd as isOdd; even as isEven; last as isLast;')
+    svg:text(
+        '*ngIf'='isHourLine(k)',
+        '[attr.x]'='getXCoordinate(k)',
+        '[attr.y]'='topPadding',
+        'dy'='-2',
+        '[attr.textLength]'='textLength',
+        '[attr.font-size]'='fontSize',
+        'lengthAdjust'='spacingAndGlyphs',
+        'text-anchor'='middle') {{getHourString(k)}}
+

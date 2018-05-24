@@ -1,0 +1,19 @@
+text {
+	user-select: none;
+
+	&::selection {
+		background: none;
+	}
+}
+
+rect {
+	cursor: move;
+
+	&.resize {
+		cursor: ew-resize;
+	}
+}
+
+:host.editable rect.display {
+	opacity: .5;
+}
